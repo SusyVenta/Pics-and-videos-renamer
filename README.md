@@ -12,7 +12,7 @@ REQUIREMENTS:
    
 DESCRIPTION:
 
-This script checks all the files in the chosen folder, to see if their names fit the format "2018-04-24 10.60.45" (year, month, day hh.mm.ss. (I have tested the program with .jpg, .jpeg, .mp4, .png files and it works fine with these.)
+This script checks all the files in the chosen folder, to see if their names fit the format "2018-04-24 10.60.45" (year, month, day hh.mm.ss). I have tested the program with .jpg, .jpeg, .mp4, .png files and it works fine with these.
 If a file's name already corresponds to the format, the file won't be renamed. Otherwise, the program checks if the file has exif data and if it does the file will be renamed with the date the photo\video\etc. was taken.
 If the file does not have exif information, the new name will be its last modification date (in most cases it's the date the file was created). 
 In either case (exif date or last modification date), before renaming the file, the script checks if a file with the new name already exists and, in that case, the current file's new name will be e.g. "2018-04-24 10.60.45-1.jpg". If the latter already exists the new name will be "2018-04-24 10.60.45-1-2.jpg", and so on. This is useful if you want to rename photos received at the same time e.g. on WhatsApp (that have the same last modification date).
