@@ -31,7 +31,7 @@ for i in os.listdir(path):
                             else:
                                 def doubles_exif():
                                     pass
-                                doppioni_exif()
+                                doubles_exif()
                                 new_name=new_name+"-"+str(a)
                                 exif_name="%s%s" %(new_name,file_ext)
                                 new_path=os.path.join(path, exif_name)
@@ -44,7 +44,7 @@ for i in os.listdir(path):
                                         print file_name +" renamed as: "+exif_name
                                 else:
                                     a+=1
-                                    doppioni_exif()
+                                    doubles_exif()
                                                       
         except:
             try:
@@ -71,7 +71,7 @@ for i in os.listdir(path):
                     else:
                         def doubles_noexif():
                             pass
-                        doppioni_noexif()
+                        doubles_noexif()
                         n_noexif=n_noexif+"-"+str(int(a))
                         name_noexif= "%s%s"%(n_noexif,file_ext)
                         path_noexif=os.path.join(path, name_noexif)
@@ -84,7 +84,7 @@ for i in os.listdir(path):
                                 print file_name+" renamed as: "+name_noexif
                         else:
                             a+=1
-                            doppioni_noexif()
+                            doubles_noexif()
                             
             except:
                 try:
