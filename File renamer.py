@@ -29,9 +29,6 @@ for i in os.listdir(path):
                                     shutil.move(fpath, new_path)
                                     print file_name +" renamed as: "+exif_name
                             else:
-                                def doubles_exif():
-                                    pass
-                                doubles_exif()
                                 new_name=new_name+"-"+str(a)
                                 exif_name="%s%s" %(new_name,file_ext)
                                 new_path=os.path.join(path, exif_name)
@@ -43,9 +40,7 @@ for i in os.listdir(path):
                                         shutil.move(fpath, new_path)
                                         print file_name +" renamed as: "+exif_name
                                 else:
-                                    a+=1
-                                    doubles_exif()
-                                                      
+                                    a+=1                         
         except:
             try:
                 os.remove(fpath)
@@ -69,9 +64,6 @@ for i in os.listdir(path):
                             shutil.move(fpath, path_noexif)
                             print file_name+" renamed as: "+name_noexif
                     else:
-                        def doubles_noexif():
-                            pass
-                        doubles_noexif()
                         n_noexif=n_noexif+"-"+str(int(a))
                         name_noexif= "%s%s"%(n_noexif,file_ext)
                         path_noexif=os.path.join(path, name_noexif)
@@ -84,7 +76,6 @@ for i in os.listdir(path):
                                 print file_name+" renamed as: "+name_noexif
                         else:
                             a+=1
-                            doubles_noexif()
                             
             except:
                 try:
