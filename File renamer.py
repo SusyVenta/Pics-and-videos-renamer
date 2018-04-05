@@ -4,82 +4,73 @@ import re
 import datetime
 import shutil
 path="C:\Users\Susy\Desktop\Prova foto"
+def rename_curr_file():
+    try:
+        os.rename(fpath, new_path)
+        print file_name +" renamed as:\t"+new_name
+    except:
+        shutil.move(fpath, new_path)
+        print file_name +" renamed as:\t"+new_name
+#check if filename is in correct format
 for i in os.listdir(path):
     fpath=os.path.join(path, i)
     r =re.compile('[0-9]{4}-[0-9]{2}-[0-9]{2} [0-9]{2}.[0-9]{2}.[0-9]{2}')
     if r.match(os.path.basename(i)):
-        print "No need to rename: "+os.path.basename(i)
-    elif not r.match(os.path.basename(i)):
+        print "No need to rename:\t"+os.path.basename(i)
+#if file name is not in correct format, try to rename with exif date
+    else:
         try:
             with open (fpath,"rb") as f:
                 tags = exifread.process_file(f)
                 for tag in tags.keys():
                     if tag == "EXIF DateTimeOriginal":
-                        new_name =(str(tags[tag])[:10]).replace(":","-")+(str(tags[tag])[10:]).replace(":",".")
+                        exif_name =(str(tags[tag])[:10]).replace(":","-")+(str(tags[tag])[10:]).replace(":",".")
                         file_name, file_ext=os.path.splitext(i)
-                        exif_name="%s%s" %(new_name,file_ext)
-                        new_path=os.path.join(path, exif_name)
+                        new_name="%s%s" %(exif_name,file_ext)
+                        new_path=os.path.join(path, new_name)
                         a=1
+                        #check if file with this new name already exists
                         for i in os.listdir(path):
-                            if os.path.exists(new_path)==False:
-                                try:
-                                    os.rename(fpath, new_path)
-                                    print file_name +" renamed as: "+exif_name
-                                except:
-                                    shutil.move(fpath, new_path)
-                                    print file_name +" renamed as: "+exif_name
-                            else:
-                                new_name=new_name+"-"+str(a)
-                                exif_name="%s%s" %(new_name,file_ext)
-                                new_path=os.path.join(path, exif_name)
-                                if os.path.exists(new_path)==False:
-                                    try:
-                                        os.rename(fpath, new_path)
-                                        print file_name +" renamed as: "+exif_name
-                                    except:
-                                        shutil.move(fpath, new_path)
-                                        print file_name +" renamed as: "+exif_name
+                            if os.path.exists(new_path):
+                                exif_name=exif_name+"-"+str(a)
+                                new_name="%s%s" %(exif_name,file_ext)
+                                new_path=os.path.join(path, new_name)
+                                if os.path.exists(new_path):
+                                    a+=1
                                 else:
-                                    a+=1                         
+                                    rename_curr_file()
+                            else:
+                                rename_curr_file()                                                          
         except:
             try:
                 os.remove(fpath)
-                print file_name +" renamed as: "+exif_name  
+                print file_name +" renamed as:\t"+new_name  
             except:
                 pass
+#if file has no exif date, rename with last mod date
         else:
             try:
                 file_name, file_ext=os.path.splitext(i)
                 mtime=os.stat(fpath).st_mtime
                 n_noexif=(str(datetime.datetime.fromtimestamp(mtime))[:19]).replace(":",".")
-                name_noexif= "%s%s"%(n_noexif,file_ext)
-                path_noexif=os.path.join(path, name_noexif)
+                new_name= "%s%s"%(n_noexif,file_ext)
+                new_path=os.path.join(path, new_name)
                 a=1
+                #check if file with this new name already exists
                 for i in os.listdir(path):
-                    if os.path.exists(path_noexif)==False:
-                        try:
-                            os.rename(fpath, path_noexif)
-                            print file_name+" renamed as: "+name_noexif
-                        except:
-                            shutil.move(fpath, path_noexif)
-                            print file_name+" renamed as: "+name_noexif
-                    else:
-                        n_noexif=n_noexif+"-"+str(int(a))
-                        name_noexif= "%s%s"%(n_noexif,file_ext)
-                        path_noexif=os.path.join(path, name_noexif)
-                        if os.path.exists(path_noexif)==False:
-                            try:
-                                os.rename(fpath, path_noexif)
-                                print file_name+" renamed as: "+name_noexif
-                            except:
-                                shutil.move(fpath, path_noexif)
-                                print file_name+" renamed as: "+name_noexif
-                        else:
+                    if os.path.exists(new_path):
+                        n_noexif=n_noexif+"-"+str(a)
+                        new_name= "%s%s"%(n_noexif,file_ext)
+                        new_path=os.path.join(path, new_name)
+                        if os.path.exists(new_path):
                             a+=1
-                            
+                        else:
+                            rename_curr_file()    
+                    else:
+                        rename_curr_file()
             except:
                 try:
                     os.remove(fpath)
-                    print file_name+" renamed as: "+name_noexif
+                    print file_name +" renamed as:\t"+new_name  
                 except:
                     pass
