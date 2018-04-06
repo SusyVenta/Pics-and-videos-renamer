@@ -4,13 +4,6 @@ import re
 import datetime
 import shutil
 path="C:\Users\Susy\Desktop\Prova foto"
-def rename_curr_file():
-    try:
-        os.rename(fpath, new_path)
-        print file_name +" renamed as:\t"+new_name
-    except:
-        shutil.move(fpath, new_path)
-        print file_name +" renamed as:\t"+new_name
 #check if filename is in correct format
 for i in os.listdir(path):
     fpath=os.path.join(path, i)
@@ -38,9 +31,19 @@ for i in os.listdir(path):
                                 if os.path.exists(new_path):
                                     a+=1
                                 else:
-                                    rename_curr_file()
+                                    try:
+                                        os.rename(fpath, new_path)
+                                        print file_name +" renamed as:\t"+new_name
+                                    except:
+                                        shutil.move(fpath, new_path)
+                                        print file_name +" renamed as:\t"+new_name
                             else:
-                                rename_curr_file()                                                          
+                                try:
+                                    os.rename(fpath, new_path)
+                                    print file_name +" renamed as:\t"+new_name
+                                except:
+                                    shutil.move(fpath, new_path)
+                                    print file_name +" renamed as:\t"+new_name                                                         
         except:
             try:
                 os.remove(fpath)
@@ -65,9 +68,19 @@ for i in os.listdir(path):
                         if os.path.exists(new_path):
                             a+=1
                         else:
-                            rename_curr_file()    
+                            try:
+                                os.rename(fpath, new_path)
+                                print file_name +" renamed as:\t"+new_name
+                            except:
+                                shutil.move(fpath, new_path)
+                                print file_name +" renamed as:\t"+new_name    
                     else:
-                        rename_curr_file()
+                        try:
+                            os.rename(fpath, new_path)
+                            print file_name +" renamed as:\t"+new_name
+                        except:
+                            shutil.move(fpath, new_path)
+                            print file_name +" renamed as:\t"+new_name
             except:
                 try:
                     os.remove(fpath)
