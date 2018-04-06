@@ -3,7 +3,7 @@ Python script that allows renaming multiple files to their exif date\last modifi
 
 REQUIREMENTS:
 
-  - This script is written with Python 2.7 and thus requires the installation of Python 2.7 to run
+  - This script is written with Python 3.6.5 and thus requires the installation of Python 3.x to run
   - This script requires the installation of the ExifRead 2.1.2 module, which reads files' exif data
   - This script has been written in a Windows 10 environment, specifically designed to work on Windows, but it also works on Linux and 
     probably on MacOS.
